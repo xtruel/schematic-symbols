@@ -1,6 +1,7 @@
 import { rotateSymbol } from "drawing/rotateSymbol"
 import mosfet_depletion_normally_on_horz from "./mosfet_depletion_normally_on_horz"
 import type { TextPrimitive } from "drawing"
+import { getSizeForCenteredTerminalBox } from "drawing/getSizeForCenteredTerminalBox"
 
 const rotated = rotateSymbol(mosfet_depletion_normally_on_horz)
 
@@ -16,6 +17,9 @@ val.anchor = "middle_top"
 
 ref.x = val.x
 
-val.y += 0.15
+val.y -= 0.15
 
-export default rotated
+export default {
+  ...rotated,
+  size: getSizeForCenteredTerminalBox(rotated.center, rotated.ports),
+}
