@@ -50,3 +50,26 @@ test("battery lead endpoints coincide with their ports", () => {
     }
   }
 })
+
+test("battery size encloses both terminals in every orientation", () => {
+  for (const name of [
+    "battery_horz",
+    "battery_vert",
+    "battery_right",
+    "battery_left",
+    "battery_up",
+    "battery_down",
+  ] as const) {
+    const symbol = symbols[name]
+    for (const port of symbol.ports) {
+      expect(
+        Math.abs(port.x - symbol.center.x),
+        `${name} port ${port.labels[0]} x`,
+      ).toBeLessThanOrEqual(symbol.size.width / 2 + 1e-9)
+      expect(
+        Math.abs(port.y - symbol.center.y),
+        `${name} port ${port.labels[0]} y`,
+      ).toBeLessThanOrEqual(symbol.size.height / 2 + 1e-9)
+    }
+  }
+})
